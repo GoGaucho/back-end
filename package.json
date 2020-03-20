@@ -1,0 +1,22 @@
+{
+  "name": "gogaucho-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoGaucho/back-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GoGaucho/back-end/issues"
+  },
+  "homepage": "https://github.com/GoGaucho/back-end#readme",
+  "dependencies": {},
+  "devDependencies": {}
+}
