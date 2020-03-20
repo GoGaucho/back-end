@@ -24,75 +24,75 @@
         - method: get
         - parameter: 
             - prof: String, professor name, no format requirements, used for RMP search
-        - response: a `List` of [RMP_RESPONSE](##RMP_RESPONSE)
+        - response: a `List` of [RMP_RESPONSE](##rmp_response)
 
     - /api/sche/getQuarter
         - Description: This API returns a list of QUARTER_CODE and the suggested default quarter.
         - method: get
         - parameter: none
-        - response: [QUARTER_LIST](##QUARTER_LIST)
+        - response: [QUARTER_LIST](##quarter_list)
 
     - /api/sche/getDeptList
         - Description: This API returns a list of department codes for a given quarter
         - method: get
         - parameter:
-            - q: String, [QUARTER_CODE](##QUARTER_CODE)
-        - response: a `List` of [DEPT_CODE](##DEPT_CODE)
+            - q: String, [QUARTER_CODE](##quarter_code)
+        - response: a `List` of [DEPT_CODE](##dept_code)
 
     - /api/sche/getGEList
         - Description: This API returns the GE data for a given quarter
         - method: get
         - paramter:
-            - q: String, [QUARTER_CODE](##QUARTER_CODE)
-        - response: a `List` of [GE_COLL](##GE_COLL)
+            - q: String, [QUARTER_CODE](##quarter_code)
+        - response: a `List` of [GE_COLL](##ge_coll)
 
     - /api/sche/getClassByDept
         - Description: This API returns a list of course ids for a given quarter and department
         - method: get
         - parameter:
-            - q: String, [QUARTER_CODE](##QUARTER_CODE)
-            - dept: String, [DEPT_CODE](##DEPT_CODE), url-encoded
-        - response: a `List` of [COURSE_ID](##COURSE_ID)
+            - q: String, [QUARTER_CODE](##quarter_code)
+            - dept: String, [DEPT_CODE](##dept_code), url-encoded
+        - response: a `List` of [COURSE_ID](##course_id)
 
     - /api/sche/getClassByID
         - Description: This API returns all data of the specified course in a given quarter
         - method: get
         - parameter:
-            - q: String, [QUARTER_CODE](##QUARTER_CODE)
-            - id: String, [COURSE_ID](##COURSE_ID), url-encoded
-        - response: [UCSB.class](##UCSB.class)
+            - q: String, [QUARTER_CODE](##quarter_code)
+            - id: String, [COURSE_ID](##course_id), url-encoded
+        - response: [UCSB.class](##ucsb.class)
         
     - /api/sche/getClassesByID
         - Description: convenience method to retrieve a large number of course data
         - method: post
         - parameter: 
-            - q: String, [QUARTER_CODE](##QUARTER_CODE)
-        - body: a `List` of [COURSE_ID](##COURSE_ID)
-        - response: a `List` of [UCSB.class](##UCSB.class)
+            - q: String, [QUARTER_CODE](##quarter_code)
+        - body: a `List` of [COURSE_ID](##course_id)
+        - response: a `List` of [UCSB.class](##ucsb.class)
 
     - /api/sche/getClassHistByID
         - Description: convenience method to retrieve a class in all available quarters
         - method: get
         - parameter:
-            - id: String, [COURSE_ID](##COURSE_ID), url-encoded
-        - response: a `List` of [COURSE_HIST](##COURSE_HIST)
+            - id: String, [COURSE_ID](##course_id), url-encoded
+        - response: a `List` of [COURSE_HIST](##course_hist)
 
     - /api/sche/getHistories
         - Description: This API returns the enroll history of the given quarter of a given course
         - method: post
         - parameter:
-            - q: String, [QUARTER_CODE](##QUARTER_CODE)
-        - body: a `List` of [ENROLL_CODE](##ENROLL_CODE)
+            - q: String, [QUARTER_CODE](##quarter_code)
+        - body: a `List` of [ENROLL_CODE](##enroll_code)
         - response: a `List` of `ENROLL_HISTORY`
 
     - /api/sche/searchClass
         - Description: This API implements the search feature
-            - currently supports search for [COURSE_ID](##COURSE_ID), title, and description
+            - currently supports search for [COURSE_ID](##course_id), title, and description
         - method: get
         - parameter: 
-            - q: String, [QUARTER_CODE](##QUARTER_CODE)
+            - q: String, [QUARTER_CODE](##quarter_code)
             - key: String, url-encoded
-        - response: a `List` of [COURSE_ID](##COURSE_ID)
+        - response: a `List` of [COURSE_ID](##course_id)
 
 - Unused Sche APIs
     - /api/sche/getProfList
@@ -133,8 +133,8 @@
 
 ## QUARTER_LIST
 `QUARTER_LIST`: Object
-- `qlist`: a `List` of [QUARTER_CODE](##QUARTER_CODE), a list of available quarters
-- `default`: [QUARTER_CODE](##QUARTER_CODE), the recommended default quarter choice
+- `qlist`: a `List` of [QUARTER_CODE](##quarter_code), a list of available quarters
+- `default`: [QUARTER_CODE](##quarter_code), the recommended default quarter choice
 
 ## DEPT_CODE
 `DEPT_CODE`: String
@@ -146,8 +146,8 @@
 
 ## GE_COLL
 `GE_COLL`: Object
-- `col`: String, [COLL_CODE](##COLL_CODE)
-- `codes`: a `List` of [GE_LIST](##GE_LIST)
+- `col`: String, [COLL_CODE](##coll_code)
+- `codes`: a `List` of [GE_LIST](##ge_list)
 
 ## COLL_CODE
 `COLL_CODE`: String
@@ -156,8 +156,8 @@
 
 ## GE_LIST
 `GE_LIST`: Object
-- `code`: String, [AREA_CODE](##AREA_CODE)
-- `list`: a `List` of [COURSE_ID](##COURSE_ID)
+- `code`: String, [AREA_CODE](##area_code)
+- `list`: a `List` of [COURSE_ID](##course_id)
 
 ## AREA_CODE
 `AREA_CODE`: String
@@ -177,8 +177,8 @@
 
 ## COURSE_HIST
 `COURSE_HIST`: Object
-- `q`: String, [QUARTER_CODE](##QUARTER_CODE)
-- `data`: [UCSB.class](##UCSB.class)
+- `q`: String, [QUARTER_CODE](##quarter_code)
+- `data`: [UCSB.class](##ucsb.class)
 
 ## ENROLL_CODE
 `ENROLL_CODE`: String
@@ -186,8 +186,8 @@
 
 ## ENROLL_HISTORY
 `ENROLL_HISTORY`: Object
-- `code`: String, [ENROLL_CODE](##ENROLL_CODE)
-- `data`: a `List` of [ENROLL_HISTORY_ENTRY](##ENROLL_HISTORY_ENTRY)
+- `code`: String, [ENROLL_CODE](##enroll_code)
+- `data`: a `List` of [ENROLL_HISTORY_ENTRY](##enroll_history_entry)
 
 ## ENROLL_HISTORY_ENTRY
 `ENROLL_HISTORY_ENTRY`: Object
