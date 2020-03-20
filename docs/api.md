@@ -246,21 +246,21 @@
 
 ### TIME
 `TIME`: String
-In the format of `hh:mm`
+- In the format of `hh:mm`
 
 ### ISO.DateTime
 `ISO.DateTime`: String
-In the format of `yyyy-mm-ddThh:mm:ss`
+- In the format of `yyyy-mm-ddThh:mm:ss`
 
 ### UCSB.days
 `UCSB.days`: String
-7 characters long, MTWRFSS, missing days replaced with white space
-example: Tuesday and Thursday is ` T R   `, Monday, Wednesday, and Friday is `M W F  `
+- 7 characters long, MTWRFSS, missing days replaced with white space
+- example: Tuesday and Thursday is ` T R   `, Monday, Wednesday, and Friday is `M W F  `
 
 ## UCSB API Models
 
 ### UCSB.QuarterInfo
-`UCSB.QuarterInfo`: Object
+`UCSB.QuarterInfo`: Object  
 see Models - QuarterCalendar in [UCSB API](https://developer.ucsb.edu/content/academic-quarter-calendar)
 - `quarter`: String, [QUARTER_CODE](#quarter_code)
 - `qyy`: String, example: `S20`
@@ -280,11 +280,10 @@ see Models - QuarterCalendar in [UCSB API](https://developer.ucsb.edu/content/ac
 - `lastDayToAddUnderGrad`: [ISO.DateTime](#isodatetime)
 - `lastDayToAddGrad`: [ISO.DateTime](#isodatetime)
 - `lastDayThirdWeek`: nullable, [ISO.DateTime](#isodatetime)
-}
 
 ### UCSB.class
-`UCSB.class`: Object
-see Models - Class in [UCSB API](https://developer.ucsb.edu/content/academic-curriculums)
+`UCSB.class`: Object  
+see Models - Class in [UCSB API](https://developer.ucsb.edu/content/academic-curriculums)  
 Here are some important fields:
 - `quarter`: String, [QUARTER_CODE](#quarter_code)
 - `courseId`L String, full version of [COURSE_ID](#course_id) with additional spaces
@@ -297,7 +296,7 @@ Here are some important fields:
 - `gradingOption`: String
 - `deptCode`: String, [DEPT_CODE](#dept_code)
 - `generalEducation`: a `List` of [UCSB.ge](#ucsbge)
-- `classSections`: a `List` of [UCSB.section](ucsbsection)
+- `classSections`: a `List` of [UCSB.section](ucsbsection)  
 Other Fields:
 - `contactHours`
 - `objLevelCode`
@@ -308,15 +307,15 @@ Other Fields:
 - `onLineCourse`
 
 ### UCSB.ge
-`UCSB.ge`: Object
-see Models - GeneralEducation in [UCSB API](https://developer.ucsb.edu/content/academic-curriculums)
+`UCSB.ge`: Object  
+see Models - GeneralEducation in [UCSB API](https://developer.ucsb.edu/content/academic-curriculums)  
 Here are some important fields:
 - `geCode`: String, [AREA_CODE](#area_code)
 - `geCollege`: String, [COLL_CODE](#coll_code)
 
 ### UCSB.section
-`UCSB.section`: Object
-see Models - ClassSection in [UCSB API](https://developer.ucsb.edu/content/academic-curriculums)
+`UCSB.section`: Object  
+see Models - ClassSection in [UCSB API](https://developer.ucsb.edu/content/academic-curriculums)  
 Here are some important fields:
 - `enrollCode`: String, [ENROLL_CODE](#enroll_code)
 - `section`: String, [SECTION_CODE](#section_code)
@@ -326,7 +325,7 @@ Here are some important fields:
 - `enrolledTotal`: int
 - `maxEnroll`: int
 - `timeLocations`: a `List` of [UCSB.TimeLication](#ucsbtimelocation)
-- `instructors`: a `List` of [UCSB.Instructor](#ucsbinstructor)
+- `instructors`: a `List` of [UCSB.Instructor](#ucsbinstructor)  
 Other Fields:
 - `gradingOptionCode`
 - `secondaryStatus`
@@ -340,8 +339,8 @@ Other Fields:
 - `concurrentCourses`
 
 ### UCSB.TimeLocation
-`UCSB.TimeLocation`: Object
-see Models - ClassTimeLocation in [UCSB API](https://developer.ucsb.edu/content/academic-curriculums)
+`UCSB.TimeLocation`: Object  
+see Models - ClassTimeLocation in [UCSB API](https://developer.ucsb.edu/content/academic-curriculums)  
 Note: all fields are nullable
 - `room`: String
 - `building`: String
@@ -351,7 +350,7 @@ Note: all fields are nullable
 - `endTime`: String, String, [TIME](#time)
 
 ### UCSB.Instructor
-`UCSB.Instructor`: Object
+`UCSB.Instructor`: Object  
 see Models - ClassInstructor in [UCSB API](https://developer.ucsb.edu/content/academic-curriculums)
 - `name`: [PROF_NAME](#prof_name)
 - `functionalCode`: String
