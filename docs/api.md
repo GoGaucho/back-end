@@ -116,10 +116,22 @@
         - prof: String, [PROF_NAME](#prof_name), url-encoded
     - response: a `List` of [PROF_TEACH](#prof_teach)
 
+- /api/sche/getClassList
+    - Description: For mobile, retrieves a list of all courses and corresponding MD5 hash
+    - method: get
+    - parameter:
+        - q: String, [QUARTER_CODE](#quarter_code)
+    - response: a `List` of [CLASS_LIST](#class_list)
+
+- /api/sche/getAllData
+    - Description: For mobile, retrieves a list of all course data
+    - method: get
+    - parameter:
+        - q: String, [QUARTER_CODE](#quarter_code)
+    - response: the entire [collection](./models.md#c_quarter)
+
 - Unused Sche APIs
     - /api/sche/getSpaceByEnrollCode
-    - /api/sche/getClassList
-    - /api/sche/getAllData
     - /api/sche/getNewClassByID
     - /api/sche/getHistory
 - Internal Debug APIs
@@ -241,6 +253,20 @@
 `PROF_TEACH`: Object
 - `q`: [QUARTER_CODE](#quarter_code)
 - `data`: a `List` of [COURSE_ID](#course_id)
+
+## Mobile Specific Object Format Definitions
+
+### CLASS_LIST
+`CLASS_LIST`: Object
+- `dept`: String, [DEPT_CODE](#dept_code)
+- `cids`: a `List` of [MD5_PAIR](#md5_pair)
+
+### MD5_PAIR
+`MD5_PAIR`: Object
+- `id`: String, [COURSE_ID](#course_id)
+- `md5`: String, md5 hash
+
+
 
 ## String Format Definitions for Date and Time
 
