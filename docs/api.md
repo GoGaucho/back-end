@@ -128,8 +128,9 @@
     - method: get
     - parameter:
         - q: String, [QUARTER_CODE](#quarter_code)
-    - response: the entire [collection](./models.md#c_quarter)
+    - response: the entire collection [C_QUARTER](./models.md#c_quarter)
 
+### Other Unused/Abandoned APIS
 - Unused Sche APIs
     - /api/sche/getSpaceByEnrollCode
     - /api/sche/getNewClassByID
@@ -138,7 +139,7 @@
     - /api/sche/refreshSche
     - /api/sche/getCSV
     - /api/sche/test
-- Abandoned APIs
+- Abandoned Sche APIs
     - /api/sche/expScheCalc
     - /api/sche/getSchedule
     - /api/sche/impScheCalc
@@ -146,7 +147,6 @@
     - Dining Cameras: 3 APIs
     - Dining Dish Vote: 5 APIs
     - Old GGG: 8 APIs
-
 
 # Models
 
@@ -241,7 +241,7 @@
 
 ### ENROLL_HISTORY_ENTRY
 `ENROLL_HISTORY_ENTRY`: Object
-- `date`: int, the time of this entry, use `new Date(date*1000)` to get actual date
+- `date`: int, the time of this entry, [INT_TIME](#int_time)
 - `sp`: int, remaining space
 
 ### PROF_LIST
@@ -269,6 +269,10 @@
 
 
 ## String Format Definitions for Date and Time
+
+### INT_TIME
+`INT_TIME`: number
+- an integer, use `new Date(value*1000)` to get actual date
 
 ### TIME
 `TIME`: String
