@@ -17,6 +17,11 @@
     "url": "https://github.com/GoGaucho/back-end/issues"
   },
   "homepage": "https://github.com/GoGaucho/back-end#readme",
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "md5": "^2.2.1",
+    "mongodb": "^3.5.5"
+  },
   "devDependencies": {}
 }
