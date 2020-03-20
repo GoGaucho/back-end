@@ -60,7 +60,7 @@
         - parameter:
             - q: String, [QUARTER_CODE](#quarter_code)
             - id: String, [COURSE_ID](#course_id), url-encoded
-        - response: [UCSB.class](#ucsb.class)
+        - response: [UCSB.class](#ucsbclass)
         
     - /api/sche/getClassesByID
         - Description: convenience method to retrieve a large number of course data
@@ -68,7 +68,7 @@
         - parameter: 
             - q: String, [QUARTER_CODE](#quarter_code)
         - body: a `List` of [COURSE_ID](#course_id)
-        - response: a `List` of [UCSB.class](#ucsb.class)
+        - response: a `List` of [UCSB.class](#ucsbclass)
 
     - /api/sche/getClassHistByID
         - Description: convenience method to retrieve a class in all available quarters
@@ -178,7 +178,7 @@
 ## COURSE_HIST
 `COURSE_HIST`: Object
 - `q`: String, [QUARTER_CODE](#quarter_code)
-- `data`: [UCSB.class](#ucsb.class)
+- `data`: [UCSB.class](#ucsbclass)
 
 ## ENROLL_CODE
 `ENROLL_CODE`: String
