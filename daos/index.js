@@ -13,7 +13,8 @@ const crypto = require("../utils/crypto");
 
 // all modules
 const m = {
-  dining: require("./dining")
+  dining: require("./dining"),
+  waitz: require("./waitz")
 }
 
 async function check(id) {
