@@ -30,15 +30,14 @@ async function check(id) {
 }
 
 module.exports = async function(func, expireIn = 86400) {
-  let key = crypto.HASH(func);
-  let res = await check(key);
+  let res = await check(func);
   if (!res) { // no cache data
     // compile string into function
     let f = new Function("m", "return m." + func); 
     res = await f(m); // run function
     if (expireIn > 0) {
       // cache
-      cache.Insert(key, time.Timestamp() + expireIn, res);
+      cache.Insert(func, time.Timestamp() + expireIn, res);
     }
   }
   return res;

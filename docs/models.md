@@ -6,7 +6,7 @@
 
 | key      | type   | description             |
 | -------- | ------ | ----------------------- |
-| `_id`    | string | hash of Query string    |
+| `_id`    | string | function string         |
 | `expire` | int    | timestamp at expiration |
 | `data`   | Object | data                    |
 
@@ -16,7 +16,7 @@
 
 | key         | type   | description                          |
 | ----------- | ------ | ------------------------------------ |
-| `_id`       | string | hash of Type and Timestamp           |
+| `_id`       | string | a label                              |
 | `type`      | string | indicate the type of the information |
 | `timestamp` | int    | timestamp at creation                |
 | `data`      | Object | data                                 |
