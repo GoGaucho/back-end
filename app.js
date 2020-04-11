@@ -13,8 +13,10 @@ async function main() {
   let models = require("./models");
   // wait for models
   while (!models()) await time.Sleep(1000);
-  // initialize other layers
+  // initialize API server
+  require("./controllers/api");
   
+  require("./test");
 }
 
 // start
