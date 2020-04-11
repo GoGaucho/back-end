@@ -17,6 +17,7 @@ const m = {
   waitz: require("./waitz")
 }
 
+// check cache
 async function check(id) {
   let res = await cache.Find({ _id: id });
   if (res.length == 0) return null;
@@ -32,9 +33,11 @@ module.exports = async function(func, expireIn = 86400) {
   let key = crypto.HASH(func);
   let res = await check(key);
   if (!res) { // no cache data
-    let f = new Function("m", "return m." + func);
-    res = await f(m);
+    // compile string into function
+    let f = new Function("m", "return m." + func); 
+    res = await f(m); // run function
     if (expireIn > 0) {
+      // cache
       cache.Insert(key, time.Timestamp() + expireIn, res);
     }
   }

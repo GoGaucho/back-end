@@ -13,13 +13,15 @@ const waitz = require("./waitz");
 
 const app = express();
 app.use(express.json());
-
-// dining
-app.get("/dining/hours", dining.Hours);
-app.get("/dining/menus", dining.Menus);
-// waitz
-app.get("/waitz", waitz.Waitz);
+let api = express.Router();
+app.use("/api", api);
 
 app.listen(3000, () => {
   console.log("# API server started!");
 });
+
+// dining
+api.get("/dining/hours", dining.Hours);
+api.get("/dining/menus", dining.Menus);
+// waitz
+api.get("/waitz", waitz.Waitz);

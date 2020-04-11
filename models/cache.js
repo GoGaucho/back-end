@@ -4,7 +4,6 @@
 * @{export} Insert
 * @{export} Delete
 * @{export} Find
-* @{export} Delete
 */
 
 "use strict";

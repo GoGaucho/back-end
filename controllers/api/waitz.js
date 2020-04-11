@@ -6,9 +6,9 @@
 
 "use strict";
 
-const daos = require("../../daos");
+const waitz = require("../../services/waitz");
 
 exports.Waitz = async function(req, resp) {
-  let res = await daos(`waitz.Waitz()`);
+  let res = await waitz.Waitz();
   resp.send(res);
 }
