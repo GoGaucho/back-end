@@ -1,20 +1,23 @@
 # Data Access Objects
 
-## static
+## index
 
-> this function should only be called inside the DAOS layer.
+If you want to cache the result of a function, use the function exported by index.
 
-All static information is accessed by passing the following Query Object to info function:
-
+For example, you want to call `dining.Hours('2020-01-11')`, but you want the result to be cached, just do the following things:
 ```js
-{
-  source: "https://api.ucsb.edu", // data source
-  router: "/dining/menu/v1/", // router of the data source
-  querys: "", // query string
-  expire: 0 // expiration of cache, 0 for no cache
-}
+const daos = require([path of daos/index.js]);
+
+daos(`dining.Hours("2020-04-11")`)
+  .then(res => {
+    console.log(res);
+  })
 ```
+as writen, input the targeted function as a string, and **daos** will automatically check by hash the input function string, and decide to read from models or run it to get the new data.
 
-the querys must be in the dictionary order of keys.
+> the input function string must:
+> - Use " instead of '
+> - Have a space after each comma
+> - Have no extra space
 
-**static** function will automatically get, cache, and response information.
+If you want to adjust the expire time (by default it is 1 day), pass in another integer indicating the expiration in seconds.

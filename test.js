@@ -5,10 +5,11 @@
 
 "use strict";
 
-const archive = require("./models/archive");
+const daos = require("./daos");
 
-archive
-  .Find({ _id: "lala" })
-  .then((res) => {
+let dc = "ortega"
+
+daos(`dining.Menus('${dc}')`)
+  .then(res => {
     console.log(res);
-  });
+  })
