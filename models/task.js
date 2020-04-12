@@ -1,5 +1,5 @@
 /*
-* [models] archive
+* [models] task
 * @{export} Count
 * @{export} Insert
 * @{export} Delete
@@ -9,17 +9,15 @@
 
 "use strict";
 
-const time = require("../utils/time");
-
 const db = require("./index");
-const collection = db().collection("info");
+const collection = db().collection("task");
 
 exports.Count = async function (filter) {
   return await collection.countDocuments(query);
 }
 
-exports.Insert = async function (id, info) {
-  let doc = { _id: id, timestamp: time.Timestamp(), info: info };
+exports.Insert = async function (id, interval, due, func, para) {
+  let doc = {_id: id, interval: interval ,due: due, func: func, para: para};
   let res;
   try {
     res = await collection.insertOne(doc);
@@ -41,6 +39,6 @@ exports.Find = async function (filter, limit = 1000) {
 }
 
 exports.Update = async function (filter, update) {
-  let res = await collection.updateOne(filter, update);
-  return res.result.ok; // 1 for success
+  let res = await collection.updateMany(filter, update);
+  return res.result.ok;
 }

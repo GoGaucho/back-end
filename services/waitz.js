@@ -9,5 +9,5 @@
 const daos = require("../daos");
 
 exports.Waitz = async function(date) {
-  return await daos(`waitz.Waitz()`);
+  return await daos(`waitz.Waitz()`, 600);
 }
