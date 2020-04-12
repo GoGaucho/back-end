@@ -5,8 +5,6 @@
 
 "use strict";
 
-const daos = require("./daos");
-const task = require("./models/task");
-const time = require("./utils/time");
+const pro = require("./services/professor");
 
-//task.Insert("cache", 1800, time.Timestamp(), "cache");
+// pro.Query("  SHEEDY   ").then(res => {console.log(res)});

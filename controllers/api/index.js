@@ -10,6 +10,7 @@ const express = require("express");
 
 const dining = require("./dining");
 const waitz = require("./waitz");
+const professor = require("./professor");
 
 const app = express();
 app.use(express.json());
@@ -25,3 +26,5 @@ api.get("/dining/hours", dining.Hours);
 api.get("/dining/menus", dining.Menus);
 // waitz
 api.get("/waitz", waitz.Waitz);
+// professor
+api.get("/professor", professor.Query);

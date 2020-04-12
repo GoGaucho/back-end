@@ -14,31 +14,32 @@ const crypto = require("../utils/crypto");
 // all modules
 const m = {
   dining: require("./dining"),
-  waitz: require("./waitz")
+  waitz: require("./waitz"),
+  professor: require("./professor")
 }
 
 // check cache
 async function check(id) {
   let res = await cache.Find({ _id: id });
-  if (res.length == 0) return null;
+  if (res.length == 0) return {exist: false};
   let r = res[0];
   if (r.expire < time.Timestamp()) {
     await cache.Delete({ _id: id });
-    return null;
+    return {exist: false};
   }
-  return r.data;
+  return {exist: true, data:r.data};
 }
 
 module.exports = async function(func, expireIn = 86400) {
   let res = await check(func);
-  if (!res) { // no cache data
+  if (!res.exist) { // no cache data
     // compile string into function
     let f = new Function("m", "return m." + func); 
-    res = await f(m); // run function
+    res['data'] = await f(m); // run function
     if (expireIn > 0) {
       // cache
-      cache.Insert(func, time.Timestamp() + expireIn, res);
+      cache.Insert(func, time.Timestamp() + expireIn, res.data);
     }
   }
-  return res;
+  return res.data;
 }
