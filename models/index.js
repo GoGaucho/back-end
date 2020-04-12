@@ -24,7 +24,6 @@ let DB;
 client.connect(err => {
   if (err) throw err;
   DB = client.db(conf.db);
-  console.log("# Mongodb connected!");
 });
 
 module.exports = () => {
