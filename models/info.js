@@ -1,5 +1,5 @@
 /*
-* [models] professor
+* [models] info
 * @{export} Count
 * @{export} Insert
 * @{export} Delete
@@ -16,8 +16,8 @@ exports.Count = async function (filter) {
   return await collection.countDocuments(query);
 }
 
-exports.Insert = async function (id, name) {
-  let doc = {_id: id, name: name};
+exports.Insert = async function (id, timestamp, data) {
+  let doc = {_id: id, timestamp: timestamp, data: data};
   let res;
   try {
     res = await collection.insertOne(doc);

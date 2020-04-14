@@ -1,5 +1,5 @@
 /*
-* [models] professor
+* [models] course
 * @{export} Count
 * @{export} Insert
 * @{export} Delete
@@ -10,14 +10,13 @@
 "use strict";
 
 const db = require("./index");
-const collection = db().collection("professor");
+const collection = db().collection("course");
 
 exports.Count = async function (filter) {
   return await collection.countDocuments(query);
 }
 
-exports.Insert = async function (id, name) {
-  let doc = {_id: id, name: name};
+exports.Insert = async function (doc) {
   let res;
   try {
     res = await collection.insertOne(doc);

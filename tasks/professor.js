@@ -18,10 +18,7 @@ exports.List = async function() {
     let r = await prof.Find({_id: p.pk_id});
     let rmp = {easy: p.averageeasyscore_rf, rating: p.averageratingscore_rf};
     if (!r.length) { // create
-      prof.Insert({
-        _id: p.pk_id,
-        name: p.teacherlastname_t + ", " + p.teacherfirstname_t,
-      });
+      prof.Insert(p.pk_id, p.teacherlastname_t + ", " + p.teacherfirstname_t);
     }
   }
   return "done";

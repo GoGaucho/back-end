@@ -5,6 +5,8 @@
 
 "use strict";
 
-const pro = require("./services/professor");
+const info = require("./models/info");
+const time = require("./utils/time");
+const c = require("./tasks/course");
 
-// pro.Query("  SHEEDY   ").then(res => {console.log(res)});
+c.List();

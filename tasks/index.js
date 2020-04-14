@@ -31,6 +31,7 @@ async function task() {
     for (let t of list) {
       // reset due;
       let newDue = Math.max(t.due + t.interval, time.Timestamp());
+      if (t.interval <= 0) newDue = 2147483647; // not due
       task.Update({_id: t._id}, {"$set": {due: newDue}});
       // compile into js function
       let f = new Function("m", "para", `return m.${t.func}(para);`);

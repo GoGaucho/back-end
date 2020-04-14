@@ -1,23 +1,30 @@
 /*
-* [models] task
-* @{export} Count
-* @{export} Insert
-* @{export} Delete
-* @{export} Find
-* @{export} Update
-*/
+ * [models] task
+ * @{export} Count
+ * @{export} Insert
+ * @{export} Delete
+ * @{export} Find
+ * @{export} Update
+ */
 
 "use strict";
 
 const db = require("./index");
 const collection = db().collection("task");
 
-exports.Count = async function (filter) {
+exports.Count = async function(filter) {
   return await collection.countDocuments(query);
 }
 
-exports.Insert = async function (id, interval, due, func, para) {
-  let doc = {_id: id, interval: interval ,due: due, func: func, para: para};
+exports.Insert = async function(id, interval, due, func, para, description = "") {
+  let doc = {
+    _id: id,
+    interval: interval,
+    due: due,
+    func: func,
+    para: para,
+    description: description
+  };
   let res;
   try {
     res = await collection.insertOne(doc);
@@ -28,17 +35,17 @@ exports.Insert = async function (id, interval, due, func, para) {
   return res.result.ok; // 1 for success
 }
 
-exports.Delete = async function (filter) {
+exports.Delete = async function(filter) {
   let res = await collection.deleteMany(filter);
   return res.result.ok; // 1 for success
 }
 
-exports.Find = async function (filter, limit = 1000) {
+exports.Find = async function(filter, limit = 1000) {
   let res = await collection.find(filter).limit(limit).toArray();
   return res; // an Array
 }
 
-exports.Update = async function (filter, update) {
+exports.Update = async function(filter, update) {
   let res = await collection.updateMany(filter, update);
   return res.result.ok;
 }
