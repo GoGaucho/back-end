@@ -16,10 +16,10 @@ exports.Search = async function(req, resp) {
   else resp.send("Function under development");
 }
 
-// query by QECode
+// query by courseId or QECode
 exports.Query = async function(req, resp) {
   let code = req.params.code;
-  let res = await course.Query(code);
+  let res = await (isNaN(code) ? "Under development" : course.Section(code));
   if (!res) resp.status(404).send("Not found");
   else resp.send(res);
 }
