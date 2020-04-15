@@ -10,7 +10,7 @@
 "use strict";
 
 const db = require("./index");
-const collection = db().collection("professor");
+const collection = db().collection("info");
 
 exports.Count = async function (filter) {
   return await collection.countDocuments(query);

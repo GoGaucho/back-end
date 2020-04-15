@@ -1,5 +1,5 @@
 /*
-* [models] course
+* [models] section
 * @{export} Count
 * @{export} Insert
 * @{export} Delete
@@ -10,16 +10,16 @@
 "use strict";
 
 const db = require("./index");
-const collection = db().collection("course");
+const collection = db().collection("section");
 
 exports.Count = async function (filter) {
   return await collection.countDocuments(query);
 }
 
-exports.Insert = async function (docs) {
+exports.Insert = async function (doc) {
   let res;
   try {
-    res = await collection.insertMany(docs);
+    res = await collection.insertOne(doc);
   } catch (err) {
     console.log("! " + err.errmsg);
     return 0;

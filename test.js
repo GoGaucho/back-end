@@ -9,4 +9,4 @@ const info = require("./models/info");
 const time = require("./utils/time");
 const c = require("./tasks/course");
 
-c.List();
+//c.Section();
