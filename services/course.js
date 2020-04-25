@@ -1,7 +1,9 @@
 /*
 * [services] course
 * - course services
-* @{export} Query
+* @{export} Course
+* @{export} Section
+* @{export} Search
 */
 
 "use strict";
@@ -33,4 +35,20 @@ exports.Section = async function(code) {
   let res = await section.Find({_id: code});
   if (!res.length) return null;
   else return res[0];
+}
+
+exports.Search = async function(s) {
+  let q = s.replace(/\s+/g, "\\s*");
+  let regex = eval(`/${q}/i`);
+  let res = {};
+  // start search
+  let t = await course.Find({_id: regex});
+  res["id"] = t.map(x => x._id);
+  t = await course.Find({title: regex});
+  res["title"] = t.map(x => x._id);
+  t = await course.Find({description: regex});
+  res["description"] = t.map(x => x._id);
+  t = await course.Find({GE: regex});
+  res["GE"] = t.map(x => x._id);
+  return res;
 }

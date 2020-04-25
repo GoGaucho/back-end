@@ -12,8 +12,12 @@ const time = require("../../utils/time");
 
 exports.Search = async function(req, resp) {
   let s = req.query.s;
-  if (!s) resp.status(400).send("Params Err: s required");
-  else resp.send("Function under development");
+  if (!s) {
+    resp.status(400).send("Params Err: s required");
+    return;
+  }
+  let res = await course.Search(s);
+  resp.send(res);
 }
 
 // query by courseId or QECode
