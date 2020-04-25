@@ -8,6 +8,7 @@
 
 const express = require("express");
 
+const info = require("./info");
 const dining = require("./dining");
 const waitz = require("./waitz");
 const professor = require("./professor");
@@ -22,6 +23,8 @@ app.listen(3000, () => {
   console.log("# API server started!");
 });
 
+// info
+api.get("/info/:key", info.Query);
 // dining
 api.get("/dining/hours", dining.Hours);
 api.get("/dining/menus/:dc", dining.Menus);
