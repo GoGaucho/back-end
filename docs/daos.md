@@ -21,3 +21,11 @@ as writen, input the targeted function as a string, and **daos** will automatica
 > - Have no extra space
 
 If you want to adjust the expire time (by default it is 1 day), pass in another integer indicating the expiration in seconds.
+
+## Functions
+
+- `dining.Hours(date)` Dining Hours of a particular day
+- `dining.Menus(dc, date)` Dining Menus of a Dining Common on a particular day
+- `professor.RMP(id)` RateMyProfessor data for a given professor
+- `waitz.Waitz()` current waitz data
+

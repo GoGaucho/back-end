@@ -21,7 +21,8 @@ async function task() {
 
   const m = { // all modules
     cache: require("./cache"),
-    professor: require("./professor")
+    professor: require("./professor"),
+    course: require("./course")
   }
 
   async function check() {

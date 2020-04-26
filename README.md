@@ -2,18 +2,11 @@
 
 ## Architecture
 
-- [controllers](./docs/controllers.md)
-- [services](./docs/services.md)
+- controllers
+- services
 - [daos](./docs/daos.md)
 - [models](./docs/models.md)
 - [tasks](./docs/tasks.md)
-- [utils](./docs/utils.md)
+- utils
 
 ## [API Routers](./docs/api.md)
-
-## Tasks
-
-- Dining Refresh
-- WaitZ Refresh
-- Schedule Refresh
-- GoGauchoBot
