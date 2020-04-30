@@ -18,6 +18,7 @@ const course = require("./course");
 
 const app = express();
 app.use(express.json());
+app.disable("x-powered-by"); // hide express identity
 let api = express.Router(); // router
 app.use("/api", auth.Auth, api); // register with middleware
 
