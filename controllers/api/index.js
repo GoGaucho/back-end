@@ -8,6 +8,8 @@
 
 const express = require("express");
 
+const auth = require("./auth");
+
 const info = require("./info");
 const dining = require("./dining");
 const waitz = require("./waitz");
@@ -16,8 +18,8 @@ const course = require("./course");
 
 const app = express();
 app.use(express.json());
-let api = express.Router();
-app.use("/api", api);
+let api = express.Router(); // router
+app.use("/api", auth.Auth, api); // register with middleware
 
 app.listen(3000, () => {
   console.log("# API server started!");
