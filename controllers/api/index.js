@@ -30,8 +30,8 @@ app.listen(3000, () => {
 // info
 api.get("/info/:key", info.Query);
 // student data
-api.get("/user/schedule",user.Schedule);
-api.get("/user/registration",user.Registration);
+api.get("/user/schedule", user.Schedule);
+api.get("/user/registration", user.Registration);
 // dining
 api.get("/dining/hours", dining.Hours);
 api.get("/dining/menus/:dc", dining.Menus);

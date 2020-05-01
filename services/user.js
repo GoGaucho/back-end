@@ -8,6 +8,7 @@
 "use strict"
 
 const axios = require('axios');
+const config = require("../config");
 const quarterCurrentURL = "https://api.ucsb.edu/academics/quartercalendar/v1/quarters/current";
 const studentCurrentURL = "https://api.ucsb.edu/students/students/v2/students/current";
 const studentScheduleURL = "https://api.ucsb.edu/students/schedules/v1/schedules/";
@@ -18,43 +19,35 @@ function getRequest(ver, url, token) {
     method: 'get',
     url: url,
     auth: {
-      username: process.env.UCSB_USERNAME,
-      password: process.env.UCSB_PASSWORD
+      username: config.keys.UCSB_USERNAME,
+      password: config.keys.UCSB_PASSWORD
     },
     headers: {
       "ucsb-api-version": ver,
-      "ucsb-api-key": process.env.UCSB_API_KEY,
+      "ucsb-api-key": config.keys.UCSB,
       "ucsb-user-jwt": token
     },
   };
 }
 
 async function currentQuarter() {
-  try {
-    const response = await axios({
-      method: 'get',
-      url: quarterCurrentURL,
-      headers: {
-        "ucsb-api-version": "1.0",
-        "ucsb-api-key": process.env.UCSB_API_KEY,
-      },
-      params: {
-        type: "lastdayoffinals"
-      }
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axios({
+    method: 'get',
+    url: quarterCurrentURL,
+    headers: {
+      "ucsb-api-version": "1.0",
+      "ucsb-api-key": config.keys.UCSB,
+    },
+    params: {
+      type: "lastdayoffinals"
+    }
+  });
+  return response.data;
 }
 
 async function currentStudent(token) {
-  try {
-    const response = await axios(getRequest("2.0", studentCurrentURL, token));
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axios(getRequest("2.0", studentCurrentURL, token));
+  return response.data;
 }
 
 async function studentSchedule(token) {
@@ -70,15 +63,11 @@ async function studentSchedule(token) {
 
   let url = studentScheduleURL + studentPerm + "/" + quarterCode;
 
-  try {
-    const response = await axios(getRequest("1.0", url, token));
-    return {
-      schedule: response.data,
-      quarter: quarterCode
-    };
-  } catch (error) {
-    throw error;
-  }
+  const response = await axios(getRequest("1.0", url, token));
+  return {
+    schedule: response.data,
+    quarter: quarterCode
+  };
 }
 
 async function studentRegistration(token) {
@@ -89,13 +78,9 @@ async function studentRegistration(token) {
     throw new Error("No valid perm");
   }
 
-  try {
-    const url = studentRegistrationURL + studentPerm;
-    const response = await axios(getRequest("2.0", url, token));
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const url = studentRegistrationURL + studentPerm;
+  const response = await axios(getRequest("2.0", url, token));
+  return response.data;
 }
 
 exports.Schedule = studentSchedule;
