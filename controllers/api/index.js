@@ -11,6 +11,7 @@ const express = require("express");
 const auth = require("./auth");
 
 const info = require("./info");
+const user = require("./user");
 const dining = require("./dining");
 const waitz = require("./waitz");
 const professor = require("./professor");
@@ -28,6 +29,9 @@ app.listen(3000, () => {
 
 // info
 api.get("/info/:key", info.Query);
+// student data
+api.get("/user/schedule",user.Schedule);
+api.get("/user/registration",user.Registration);
 // dining
 api.get("/dining/hours", dining.Hours);
 api.get("/dining/menus/:dc", dining.Menus);
