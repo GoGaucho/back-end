@@ -14,7 +14,7 @@ const time = require("../utils/time");
 
 async function Hours(date) {
   return await axios // get hours
-    .get(`https://api.ucsb.edu/dining/commons/v1/hours/${date}`, { headers: { "ucsb-api-key": config.keys.UCSB } })
+    .get(`https://api.ucsb.edu/dining/commons/v1/hours/${date}`, { headers: { "ucsb-api-key": config.UCSB.key } })
     .then(res => { return res.data; })
     .catch(err => { return []; });
 }
@@ -25,7 +25,7 @@ async function Menus(dc, date) {
   for (let h of hours) {
     if (h.diningCommonCode != dc) continue;
     let m = await axios // get menu
-      .get(`https://api.ucsb.edu/dining/menu/v1/${date}/${dc}/${h.mealCode}`, { headers: { "ucsb-api-key": config.keys.UCSB } })
+      .get(`https://api.ucsb.edu/dining/menu/v1/${date}/${dc}/${h.mealCode}`, { headers: { "ucsb-api-key": config.UCSB.key } })
       .then(res => { return res.data; })
       .catch(err => { return []; });
     res[h.mealCode] = { time: `${h.open}-${h.close}`, menu: m };

@@ -1,41 +1,23 @@
 /*
 * [controllers/api] user
 * - handles for user
-* @{export} Schedule
-* @{export} Registration
+* @{export} Login
 */
 
 "use strict"
 
 const user = require("../../services/user");
 
-exports.Schedule = async function (req, res) {
-  try {
-    const token = req.header('token');
-    const result = await user.Schedule(token);
-    res.send(result);
-  } catch (e) {
-    console.log(e);
-    if ((e.response.status) && (e.response.data)) {
-      res.status(e.response.status).send(e.response.data);
-    } else if (e.response.status) {
-      res.status(e.response.status).send({
-        "message": "Internal Server Error"
-      });
-    } else {
-      res.status(500).send({
-        "message": "Internal Server Error"
-      });
-    }
+exports.Login = async function (req, resp) {
+  let code = req.body.code;
+  if (!code) {
+    resp.status(400).send("Params Error, code required");
+    return;
   }
-}
-
-exports.Registration = async function (req, res) {
-  const token = req.header('token');
-  try {
-    const result = await user.Registration(token);
-    res.send(result);
-  } catch (e) {
-    res.status(500).send("Internal Server Error");
+  let res = await user.Login(code);
+  if (!res) {
+    resp.status(403).send("OAuth Login Failed.");
+    return;
   }
+  resp.send(res);
 }

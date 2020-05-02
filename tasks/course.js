@@ -23,7 +23,7 @@ async function getQuarter() { // get quarter from info
 
 async function getData(q, i){
   return await axios // get course data
-    .get(`https://api.ucsb.edu/academics/curriculums/v1/classes/search?quarter=${q}&pageNumber=${i}&pageSize=100`, { headers: { "ucsb-api-key": config.keys.UCSB } })
+    .get(`https://api.ucsb.edu/academics/curriculums/v1/classes/search?quarter=${q}&pageNumber=${i}&pageSize=100`, { headers: { "ucsb-api-key": config.UCSB.key } })
     .then(res => { return res.data.classes; })
     .catch(err => { return false; });
 }
