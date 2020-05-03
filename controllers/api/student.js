@@ -7,39 +7,27 @@
 
 "use strict"
 
+const user = require("../../services/user");
 const student = require("../../services/student");
 
-exports.Schedule = async function (req, res) {
-  try {
-    const token = req.header('token');
-    const result = await student.Schedule(token);
-    res.send(result);
-  } catch (e) {
-    console.log(e);
-    if ((e.response.status) && (e.response.data)) {
-      res.status(e.response.status).send(e.response.data);
-    } else if (e.response.status) {
-      res.status(e.response.status).send({
-        "message": "Internal Server Error"
-      });
-    } else {
-      res.status(500).send({
-        "message": "Internal Server Error"
-      });
-    }
+exports.Schedule = async function (req, resp) {
+  let jwt = await user.Refresh(req.user);
+  if (!jwt) {
+    resp.status(401).send("Sorry, maybe you need to Login again.");
+    return;
   }
+  let res = await student.Schedule(jwt);
+  if (!res) resp.status(500).send("Error");
+  else resp.send(res);
 }
 
-exports.Registration = async function (req, res) {
-  const token = req.header('token');
-  try {
-    const result = await student.Registration(token);
-    res.send(result);
-  } catch (e) {
-    res.status(500).send("Internal Server Error");
+exports.Registration = async function (req, resp) {
+  let jwt = await user.Refresh(req.user);
+  if (!jwt) {
+    resp.status(401).send("Sorry, maybe you need to Login again.");
+    return;
   }
-}
-
-exports.Login = async function (req, res) {
-  
+  let res = await student.Registration(jwt);
+  if (!res) resp.status(500).send("Error");
+  else resp.send(res);
 }

@@ -20,7 +20,7 @@ const app = express();
 app.use(express.json());
 app.disable("x-powered-by"); // hide express identity
 let api = express.Router(); // router
-app.use("/api", modules.auth.Auth, api); // register with middleware
+app.use("/api", api); // register with middleware
 
 app.listen(3000, () => {
   console.log("# API server started!");
@@ -41,5 +41,5 @@ api.get("/course/:code", modules.course.Query);
 // user
 api.post("/user", modules.user.Login);
 // student data
-api.get("/student/schedule", modules.student.Schedule);
-api.get("/student/registration", modules.student.Registration);
+api.get("/student/schedule", modules.auth.UserAuth, modules.student.Schedule);
+api.get("/student/registration", modules.auth.UserAuth, modules.student.Registration);

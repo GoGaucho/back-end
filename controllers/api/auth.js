@@ -6,23 +6,14 @@
 
 "use strict";
 
-const crypto = require("../../utils/crypto");
-const time = require("../../utils/time");
+const token = require("../../utils/token");
 
-exports.Auth = function(req, resp, next) {
-  let timestamp = req.get("timestamp");
-  let signature = req.get("signature");
-  if (isNaN(timestamp) || !signature) {
-    resp.status(401).send("Unauthorized");
-    return;
-  }
-  if (Number(timestamp) + 30 < time.Timestamp()) {
-    resp.status(408).send("Request Timeout");
-    return;
-  }
-  if (crypto.Hash(timestamp) != signature) {
+exports.UserAuth = function(req, resp, next) {
+  let t = req.get("token");
+  let u = token.Check(t);
+  if (!u) {
     resp.status(403).send("Forbidden");
-    return;
   }
+  req.user = u;
   next();
 }
