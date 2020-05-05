@@ -16,8 +16,8 @@ exports.Count = async function (filter) {
   return await collection.countDocuments(query);
 }
 
-exports.Insert = async function (id, life, beta, data) {
-  let doc = { _id: id, expire: expire, data: data };
+exports.Insert = async function (id, timestamp, life, beta, data) {
+  let doc = {_id: id, timestamp: timestamp, life: life, beta: beta, data: data};
   let res;
   try {
     res = await collection.insertOne(doc);

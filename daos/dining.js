@@ -13,10 +13,15 @@ const config = require("../config");
 const time = require("../utils/time");
 
 async function Hours(date) {
-  return await axios // get hours
+  let data = await axios // get hours
     .get(`https://api.ucsb.edu/dining/commons/v1/hours/${date}`, { headers: { "ucsb-api-key": config.UCSB.key } })
     .then(res => { return res.data; })
     .catch(err => { return []; });
+  return {
+    data: data,
+    life: 86400,
+    beta: 1
+  };
 }
 
 async function Menus(dc, date) {
@@ -30,7 +35,11 @@ async function Menus(dc, date) {
       .catch(err => { return []; });
     res[h.mealCode] = { time: `${h.open}-${h.close}`, menu: m };
   }
-  return res;
+  return {
+    data: res,
+    life: 86400,
+    beta: 1
+  };
 }
 
 module.exports = {

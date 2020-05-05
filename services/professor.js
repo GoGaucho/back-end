@@ -33,7 +33,7 @@ exports.Query = async function(input) {
   let res = await professor.Find({ name: regex });
   if (!res.length) return null; // not found in the model
   let p = res[0];
-  let rmp = await daos(`professor.RMP("${p._id}")`);
+  let rmp = await daos("professor.RMP", p._id);
   p["rmp"] = rmp;
   return p;
 }

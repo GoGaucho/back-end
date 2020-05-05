@@ -10,9 +10,9 @@
 const daos = require("../daos");
 
 exports.Hours = async function(date) {
-  return await daos(`dining.Hours("${date}")`);
+  return await daos("dining.Hours", date);
 }
 
 exports.Menus = async function(dc, date) {
-  return await daos(`dining.Menus("${dc}", "${date}")`);
+  return await daos("dining.Menus", dc, date);
 }
