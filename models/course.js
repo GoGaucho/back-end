@@ -33,7 +33,7 @@ exports.Delete = async function (filter) {
 }
 
 exports.Find = async function (filter, limit = 1000) {
-  let res = await collection.find(filter).limit(limit).toArray();
+  let res = await collection.find(filter, {projection: {_id: 1, code: 1}}).limit(limit).toArray();
   return res; // an Array
 }
 

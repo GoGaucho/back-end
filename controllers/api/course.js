@@ -20,10 +20,10 @@ exports.Search = async function(req, resp) {
   resp.send(res);
 }
 
-// query by courseId or QECode
+// query by code
 exports.Query = async function(req, resp) {
-  let code = req.params.code.toUpperCase().replace(/\s*/g, "");
-  let res = await (isNaN(code) ? course.Course(code) : course.Section(code));
+  let code = req.params.code;
+  let res = await course.Course(code);
   if (!res) resp.status(404).send("Not found");
   else resp.send(res);
 }

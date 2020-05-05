@@ -21,7 +21,7 @@ async function main() {
   // initialize API server
   require("./controllers/api");
   
-  // require("./test");
+  require("./test");
 }
 
 // start

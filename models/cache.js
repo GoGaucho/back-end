@@ -4,6 +4,7 @@
 * @{export} Insert
 * @{export} Delete
 * @{export} Find
+* @{export} Update
 */
 
 "use strict";
@@ -15,7 +16,7 @@ exports.Count = async function (filter) {
   return await collection.countDocuments(query);
 }
 
-exports.Insert = async function (id, expire, data) {
+exports.Insert = async function (id, life, beta, data) {
   let doc = { _id: id, expire: expire, data: data };
   let res;
   try {
@@ -35,4 +36,9 @@ exports.Delete = async function (filter) {
 exports.Find = async function (filter, limit = 1000) {
   let res = await collection.find(filter).limit(limit).toArray();
   return res; // an Array
+}
+
+exports.Update = async function (filter, update) {
+  let res = await collection.updateOne(filter, update);
+  return res.result.ok;
 }

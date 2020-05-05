@@ -12,8 +12,8 @@ const crypto = require("./crypto");
 const time = require("./time");
 
 // generate a new token
-exports.Create = function(id, expireIn = 604800) {
-  let timestamp = String(time.Timestamp(expireIn));
+exports.Create = function(id, life = 604800) {
+  let timestamp = String(time.Timestamp(life));
   let signature = crypto.Hash(id + timestamp, SALT);
   return id + "." + timestamp + "." + signature;
 }
