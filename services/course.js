@@ -21,7 +21,7 @@ async function getQuarter() { // get quarter from info
 
 exports.Course = async function(code) {
   let q = await getQuarter();
-  return "Unavailable.";
+  return await daos("course.Course", q, code);
 }
 
 exports.Search = async function(s) {

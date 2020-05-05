@@ -8,19 +8,21 @@ For example, you want to call `dining.Hours('2020-01-11')`, but you want the res
 ```js
 const daos = require([path of daos/index.js]);
 
-daos(`dining.Hours("2020-04-11")`)
+daos("dining.Hours", "2020-04-11")
   .then(res => {
     console.log(res);
   })
 ```
-as writen, input the targeted function as a string, and **daos** will automatically check by hash the input function string, and decide to read from models or run it to get the new data.
+as writen, input the targeted function and parameters, and **daos** will automatically check the input function and parameters, and decide to read from models or run it to get the new data.
 
-> the input function string must:
-> - Use " instead of '
-> - Have a space after each comma
-> - Have no extra space
-
-If you want to adjust the expire time (by default it is 1 day), pass in another integer indicating the expiration in seconds.
+Function in **daos** layer must return an Object
+```js
+{
+  data: data,
+  life: life, // the life of the cache
+  beta: beta  // decay factor, 0 for not caching
+}
+```
 
 ## Functions
 
@@ -28,4 +30,5 @@ If you want to adjust the expire time (by default it is 1 day), pass in another 
 - `dining.Menus(dc, date)` Dining Menus of a Dining Common on a particular day
 - `professor.RMP(id)` RateMyProfessor data for a given professor
 - `waitz.Waitz()` current waitz data
+- `course.Course(q, code)` get course data
 

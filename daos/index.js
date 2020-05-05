@@ -2,7 +2,7 @@
  * [daos] Main Interface
  * - operate models.cache
  * - functional cache
- * @{export} (func) => result
+ * @{export} (func, param1, param2 ...) => result
  */
 
 "use strict";
@@ -15,7 +15,8 @@ const crypto = require("../utils/crypto");
 const m = {
   dining: require("./dining"),
   waitz: require("./waitz"),
-  professor: require("./professor")
+  professor: require("./professor"),
+  course: require("./course")
 }
 
 // check cache and update life
@@ -31,7 +32,7 @@ async function check(id) {
   }
   // decay
   if (r.life > 300 && r.beta != 1) {
-    await cache.Update({_id: id}, {"$set": {life: r.life * r.beta}});
+    await cache.Update({_id: id}, {"$set": {life: Math.floor(r.life * r.beta)}});
   }
   return {exist: true, data:r.data};
 }
@@ -49,7 +50,7 @@ module.exports = async function() {
     args.shift();
     let r = await f.apply(null, args); // run function
     res["data"] = r.data;
-    if (r.life > 0) {
+    if (r.beta > 0) {
       cache.Insert(id, time.Timestamp(), r.life, r.beta, r.data);
     }
   }

@@ -6,6 +6,6 @@
 "use strict";
 
 const time = require("./utils/time");
-const c = require("./tasks/course");
+const task = require("./tasks/cache");
 
-//c.Course().then(res => {console.log(res);});
+task().then(res => {console.log(res);});
