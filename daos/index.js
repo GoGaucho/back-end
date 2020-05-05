@@ -25,12 +25,13 @@ async function check(id) {
   let r = res[0];
   // check life
   if (r.timestamp + r.life < time.Timestamp()) {
-    cache.Delete({ _id: id });
+    // must await, in case of insert before deleting
+    await cache.Delete({_id: id});
     return {exist: false};
   }
   // decay
   if (r.life > 300 && r.beta != 1) {
-    cache.Update({_id: id}, {"$set": {life: r.life * r.beta}});
+    await cache.Update({_id: id}, {"$set": {life: r.life * r.beta}});
   }
   return {exist: true, data:r.data};
 }
