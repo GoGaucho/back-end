@@ -35,12 +35,15 @@ async function task() {
       if (t.interval <= 0) newDue = 2147483647; // not due
       task.Update({_id: t._id}, {"$set": {due: newDue}});
       // compile into js function
-      let f = new Function("m", "para", `return m.${t.func}(para);`);
-      // start task;
-      f(m, t.para).then(res => { console.log(`- - Task ${t._id}: ${res}`) });
+      let f = new Function("m", `return m.${t._id};`);
+      
+      f(m)  // start task;
+        .then(res => { console.log(`- - Task ${t._id}: ${res}`) })
+        .catch(err => { console.log(err); });
     }
   }
 
+  check();
   setInterval(check, config.taskInterval * 1000);
 }
 

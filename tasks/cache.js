@@ -8,7 +8,7 @@
 const cache = require("../models/cache");
 const time = require("../utils/time");
 
-module.exports = async function() {
+exports.Clean = async function() {
   let res = await cache.Delete({
     "$where": `this.timestamp + this.life < ${time.Timestamp()}`
   });

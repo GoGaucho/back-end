@@ -16,13 +16,11 @@ exports.Count = async function(filter) {
   return await collection.countDocuments(query);
 }
 
-exports.Insert = async function(id, interval, due, func, para, description = "") {
+exports.Insert = async function(id, interval, due, description = "") {
   let doc = {
     _id: id,
     interval: interval,
     due: due,
-    func: func,
-    para: para,
     description: description
   };
   let res;
