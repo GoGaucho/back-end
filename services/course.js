@@ -12,14 +12,14 @@ const daos = require("../daos");
 const course = require("../models/course");
 
 exports.Course = async function(q, id) {
-  let res = await course.Find({_id: `${q}.${id.toUpperCase()}`});
+  let res = await course.Find({_id: `${q}-${id.toUpperCase()}`});
   if (!res.length) return false;
   else return res[0];
 }
 
 exports.Search = async function(q, s) {
   let sregex = eval(`/${s.replace(/\s+/g, "\\s*")}/i`);
-  let qobj = {_id: eval(`/^${q}./`)};
+  let qobj = {_id: eval(`/^${q}-/`)};
   let res = {};
   // start search
   res["id"] = await course.Find({"$and": [qobj, {_id: sregex}]}, false);
