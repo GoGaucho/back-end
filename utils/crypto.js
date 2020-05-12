@@ -14,3 +14,8 @@ exports.Hash = function(msg, salt = "") {
   let md5 = crypto.createHash("md5").update(sha256 + salt).digest("hex");
   return md5;
 }
+
+// MD5 function for hash
+exports.MD5 = function(msg, salt = "") {
+  return crypto.createHash("md5").update(msg + salt).digest("hex");
+}

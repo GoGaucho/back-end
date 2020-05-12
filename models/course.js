@@ -4,7 +4,7 @@
 * @{export} Insert
 * @{export} Delete
 * @{export} Find
-* @{export} Update
+* @{export} Upsert
 */
 
 "use strict";
@@ -16,10 +16,10 @@ exports.Count = async function (filter) {
   return await collection.countDocuments(query);
 }
 
-exports.Insert = async function (docs) {
+exports.Insert = async function (doc) {
   let res;
   try {
-    res = await collection.insertMany(docs);
+    res = await collection.insertOne(doc);
   } catch (err) {
     console.log("! " + err.errmsg);
     return 0;
@@ -32,12 +32,15 @@ exports.Delete = async function (filter) {
   return res.result.ok; // 1 for success
 }
 
-exports.Find = async function (filter, limit = 1000) {
-  let res = await collection.find(filter, {projection: {_id: 1, code: 1}}).limit(limit).toArray();
+exports.Find = async function (filter, full = true, limit = 1000) {
+  let opt = {};
+  if (!full) opt = {projection: {_id: 1}};
+  let res = await collection.find(filter, opt).limit(limit).toArray();
+  if (!full) res = res.map(x => x._id);
   return res; // an Array
 }
 
-exports.Update = async function (filter, update) {
-  let res = await collection.updateMany(filter, update);
+exports.Upsert = async function (filter, update) {
+  let res = await collection.updateMany(filter, update, {upsert: true});
   return res.result.ok;
 }

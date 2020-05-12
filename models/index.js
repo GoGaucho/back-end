@@ -17,7 +17,7 @@ url += conf.username + ":" + conf.password;
 url += "@" + conf.host + ":" + String(conf.port);
 url += "/?authSource=" + conf.authSource;
 
-const client = new mongodb.MongoClient(url);
+const client = new mongodb.MongoClient(url, { useUnifiedTopology: true });
 
 let DB;
 

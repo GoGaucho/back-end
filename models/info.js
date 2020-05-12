@@ -38,7 +38,7 @@ exports.Find = async function (filter, limit = 1000) {
   return res; // an Array
 }
 
-exports.Update = async function (filter, update) {
+exports.Upsert = async function (filter, update) {
   let res = await collection.updateMany(filter, update);
   return res.result.ok;
 }

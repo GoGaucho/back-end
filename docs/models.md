@@ -3,85 +3,87 @@
 ## cache
 
 > Store any kinds of cached information.
-
-| key      | type   | description             |
-| -------- | ------ | ----------------------- |
-| `_id`    | string | function string         |
-| `expire` | int    | timestamp at expiration |
-| `data`   | Object | data                    |
-
-## archive
-
-> Store any kinds of archive information, mainly for analysis usage.
-
-| key         | type   | description                          |
-| ----------- | ------ | ------------------------------------ |
-| `_id`       | string | a label                              |
-| `type`      | string | indicate the type of the information |
-| `timestamp` | int    | timestamp at creation                |
-| `data`      | Object | data                                 |
+```js
+{
+  _id: "string", // function string
+  timestamp: int, // time of creation
+  life: int, // life
+  beta: float, // decay factor
+  data: Object // data
+}
+```
 
 ## info
 
 > Store any kinds of static information.
-
-| key         | type   | description           |
-| ----------- | ------ | --------------------- |
-| `_id`       | string | key                   |
-| `timestamp` | int    | timestamp at creation |
-| `data`      | Object | data                  |
+```js
+{
+  _id: "string", // key
+  timestamp: int, // time of creation
+  data: Object //data
+}
+```
 
 ## professor
 
 > Store the indexed professor by RMP
-
-| key    | type   | description                      |
-| ------ | ------ | -------------------------------- |
-| `_id`  | string | id, same as on RMP               |
-| `name` | string | Professor's name (`last, first`) |
-
-## course
-
-> Course Information
-
-| key           | type   | description                           |
-| ------------- | ------ | ------------------------------------- |
-| `_id`         | string | courseId (all Uppercase and no space) |
-| `title`       | string | title of the course                   |
-| `description` | string | description of the course             |
-| `college`     | string | college of the course                 |
-| `grading`     | string | grading option of the course          |
-| `level`       | string | level of the course                   |
-| `min_unit`    | int    | mininum unit                          |
-| `max_unit`    | int    | maximun unit                          |
-| `GE`          | Array  | GE code (`CollegeCode-GECode`)        |
-
-## section
-
-> classSection Information
-
-| key           | type    | description                                |
-| ------------- | ------- | ------------------------------------------ |
-| `_id`         | string  | last two digits of quarter plus enrollCode |
-| `lecture`     | boolean | whether it is a lecture                    |
-| `course`      | string  | courseId of the section                    |
-| `session`     | Object  | session information of the section         |
-| `disabled`    | boolean | whether it is disabled                     |
-| `max`         | int     | Capacity of enroll                         |
-| `space`       | int     | Current space                              |
-| `instructors` | Array   | information of instructors                 |
-| `periods`     | Array   | information of time & locations            |
-| `sections`    | Array   | id of sections, when `lecture = true`      |
+```js
+{
+  _id: "string", // id, same as on RMP
+  name: "string" // Professor's name ("last, first")
+}
+```
 
 ## task
 
 > operators for task
+```js
+{
+  _id: "string", // function and parameters
+  description: "string", // description
+  interval: int, // operation interval in seconds, 0 for one time
+  due: int // timestamp at which it should be done
+}
+```
 
-| key           | type   | description                                   |
-| ------------- | ------ | --------------------------------------------- |
-| `_id`         | string | unique id for task                            |
-| `description` | string | description                                   |
-| `interval`    | int    | operation interval in seconds, 0 for one time |
-| `due`         | int    | timestamp at which it should be done          |
-| `func`        | string | operator function                             |
-| `para`        | Object | parameters that passed into the function      |
+## course
+
+> course info
+```js
+{
+  _id: "string", // id ("quarter.courseId")
+  info: {
+    title: "string", // title of the course
+    description: "string", // description of the course
+    college: "string", // code of college
+    grading: "string"|null, // grading option
+    level: "string", // level
+    restriction: null,
+    min_unit: int, // min unit
+    max_unit: int, // max unit
+    GE: ["string"] // GE codes ("collegeCode-GECode")
+  },
+  sections: {
+    "string": { // enrollCode
+      close: boolean, // if it is closed
+      cancel: boolean, // if it is cancelled
+      final: { // final info, currently all empty
+        time: "string", // final time ("yyyy-mm-dd D. hh:mm - hh:mm")
+        comment: "string" // comment of final
+      },
+      instructors: ["string"], // name of instructors
+      periods: [{ // periods
+        days: "string", // days
+        begin: "string", // start time ("hh:mm")
+        end: "string", // end time ("hh:mm")
+        location: "string" // location ("building-room")
+      }]
+    }
+  },
+  tree: { // relationship of all sections
+    "main": { // sessions, "main" for normal quarter
+      "string": ["string"] // lecture enrollCode and section enrollCodes
+    }
+  }
+}
+```
