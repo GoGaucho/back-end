@@ -68,7 +68,7 @@
       close: boolean, // if it is closed
       cancel: boolean, // if it is cancelled
       section: "string", // section code
-      final: { // final info, currently all empty
+      final: { // final info for lecture, currently all empty
         time: "string", // final time ("yyyy-mm-dd D. hh:mm - hh:mm")
         comment: "string" // comment of final
       },
@@ -82,7 +82,7 @@
     }
   },
   tree: { // relationship of all sections
-    "main": { // sessions, "main" for normal quarter
+    "00000": { // sessions, "00000" for normal quarter
       "string": ["string"] // lecture enrollCode and section enrollCodes
     }
   }

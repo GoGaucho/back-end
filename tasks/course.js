@@ -55,10 +55,10 @@ function getSections(classSections) {
       section: s.section,
       close: Boolean(s.classClosed),
       cancel: Boolean(s.courseCancelled),
-      final: { time: "", comment: "" },
       instructors: s.instructors.map(x => x.instructor).filter(x=>x),
       periods: getPeriods(s.timeLocations)
     }
+    if (s.section % 100 == 0) res[s.enrollCode]["final"] = { time: "", comment: "" };
   }
   return res;
 }
@@ -72,7 +72,7 @@ function getTree(classSections) {
   for (let s of classSections) {
     if (s.section % 100 == 0) {
       cur = s.enrollCode;
-      const ss = s.session || "main";
+      const ss = s.session || "00000";
       res[ss] = {};
       lec[cur] = {session: ss, sections: []};
     } else lec[cur].sections.push(s.enrollCode);
