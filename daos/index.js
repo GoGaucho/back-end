@@ -15,8 +15,7 @@ const crypto = require("../utils/crypto");
 const m = {
   dining: require("./dining"),
   waitz: require("./waitz"),
-  professor: require("./professor"),
-  course: require("./course")
+  professor: require("./professor")
 }
 
 // check cache and update life

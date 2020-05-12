@@ -52,6 +52,7 @@ function getSections(classSections) {
   let res = {};
   for (let s of classSections) {
     res[s.enrollCode] = {
+      section: s.section,
       close: Boolean(s.classClosed),
       cancel: Boolean(s.courseCancelled),
       final: { time: "", comment: "" },
@@ -89,7 +90,7 @@ exports.Course = async function(quarters) {
       if (!data.length) break;
       for (let c of data) { // loop for course
         let doc = {
-          _id: q + "." + c.courseId.replace(/\s*/g, ""),
+          _id: q + "-" + c.courseId.replace(/\s*/g, ""),
           info: {
             title: c.title,
             description: c.description,
@@ -108,7 +109,6 @@ exports.Course = async function(quarters) {
         hash[doc._id] = crypto.MD5(JSON.stringify(doc)); // hash
       }
     }
-    console.log(hash);
     let h = await info.Find({_id: `CourseHash${q}`});
     if (!h.length) {
       await info.Insert(`CourseHash${q}`, time.Timestamp(), hash);

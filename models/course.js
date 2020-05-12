@@ -36,7 +36,7 @@ exports.Find = async function (filter, full = true, limit = 1000) {
   let opt = {};
   if (!full) opt = {projection: {_id: 1}};
   let res = await collection.find(filter, opt).limit(limit).toArray();
-  if (!full) res = res.map(x => x._id);
+  if (!full) res = res.map(x => x._id.split("-")[1]);
   return res; // an Array
 }
 

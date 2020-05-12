@@ -2,7 +2,6 @@
 * [services] course
 * - course services
 * @{export} Course
-* @{export} Section
 * @{export} Search
 */
 
@@ -10,28 +9,22 @@
 
 const daos = require("../daos");
 
-const info = require("../models/info");
 const course = require("../models/course");
 
-async function getQuarter() { // get quarter from info
-  let res = await info.Find({_id: "Quarter"});
-  if (res.length) return res[0].data;
-  else return false;
+exports.Course = async function(q, id) {
+  let res = await course.Find({_id: `${q}.${id.toUpperCase()}`});
+  if (!res.length) return false;
+  else return res[0];
 }
 
-exports.Course = async function(code) {
-  let q = await getQuarter();
-  return await daos("course.Course", q, code);
-}
-
-exports.Search = async function(s) {
-  let q = s.replace(/\s+/g, "\\s*");
-  let regex = eval(`/${q}/i`);
+exports.Search = async function(q, s) {
+  let sregex = eval(`/${s.replace(/\s+/g, "\\s*")}/i`);
+  let qobj = {_id: eval(`/^${q}./`)};
   let res = {};
   // start search
-  res["id"] = await course.Find({_id: regex});
-  res["title"] = await course.Find({title: regex});
-  res["description"] = await course.Find({description: regex});
-  res["GE"] = await course.Find({GE: regex});
+  res["id"] = await course.Find({"$and": [qobj, {_id: sregex}]}, false);
+  res["title"] = await course.Find({"$and": [qobj, {"info.title": sregex}]}, false);
+  res["description"] = await course.Find({"$and": [qobj, {"info.description": sregex}]}, false);
+  res["GE"] = await course.Find({"$and": [qobj, {"info.GE": sregex}]}, false);
   return res;
 }

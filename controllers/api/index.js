@@ -36,8 +36,8 @@ api.get("/waitz", modules.waitz.Waitz);
 // professor
 api.get("/professor/:name", modules.professor.Query);
 // course
-api.get("/course", modules.course.Search);
-api.get("/course/:code", modules.course.Query);
+api.get("/course/:q", modules.course.Search);
+api.get("/course/:q/:id", modules.course.Query);
 // user
 api.post("/user", modules.user.Login);
 // student data

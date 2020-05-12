@@ -51,7 +51,7 @@
 > course info
 ```js
 {
-  _id: "string", // id ("quarter.courseId")
+  _id: "string", // id ("quarter-courseId")
   info: {
     title: "string", // title of the course
     description: "string", // description of the course
@@ -67,6 +67,7 @@
     "string": { // enrollCode
       close: boolean, // if it is closed
       cancel: boolean, // if it is cancelled
+      section: "string", // section code
       final: { // final info, currently all empty
         time: "string", // final time ("yyyy-mm-dd D. hh:mm - hh:mm")
         comment: "string" // comment of final
