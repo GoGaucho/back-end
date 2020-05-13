@@ -18,8 +18,8 @@ async function main() {
   // wait for models
   while (!models()) await time.Sleep(1000);
   console.log("# MongoDB ready (Main Thread)");
-  // initialize API server
-  require("./controllers/api");
+  // initialize controllers
+  require("./controllers");
   
   // require("./test");
 }

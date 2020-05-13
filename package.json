@@ -22,7 +22,8 @@
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "md5": "^2.2.1",
-    "mongodb": "^3.5.5"
+    "mongodb": "^3.5.5",
+    "node-telegram-bot-api": "^0.50.0"
   },
   "devDependencies": {}
 }
