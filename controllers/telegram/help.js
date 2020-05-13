@@ -6,7 +6,7 @@
 
 exports.Start = function(bot) {
   return (msg) => {
-    let resp = "Welcome!";
+    let resp = `Welcome to the GoGaucho Bot! You can try the following command: \n\n \/login - Bind your UCSB account on GoGaucho. \n\n Have a nice day!`;
     bot.sendMessage(msg.chat.id, resp);
   }
 }

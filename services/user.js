@@ -1,8 +1,11 @@
 /*
 * [services] user
 * - user services
-* @{export} Login
-* @{export} Refresh
+* @{export} Login - login with google oauth
+* @{export} Refresh - refresh google oauth token
+* @{export} Identity - get identity by other ways
+* @{export} Random - generate random(cache) for binding
+* @{export} Bind -  bind account
 */
 
 "use strict";
@@ -11,6 +14,8 @@ const axios = require("axios");
 
 const config = require("../config");
 const user = require("../models/user");
+const cache = require("../models/cache");
+const time = require("../utils/time");
 const token = require("../utils/token");
 
 async function getToken(c, type = "authorization_code") {
@@ -60,4 +65,25 @@ exports.Refresh = async function(id) {
   let tokens = await getToken(refreshToken, "refresh_token");
   if (!tokens || !tokens.id_token) return false;
   return tokens.id_token;
+}
+
+exports.Identity = async function(key, value) {
+  let filter = {};
+  filter[key] = value;
+  let res = await user.Find(filter);
+  if (!res.length) return false;
+  else return res[0]._id;
+}
+
+exports.Random = async function(set) {
+  let id = String(Math.random(0,10000)).substr(2,8);
+  await cache.Insert(`RANDOM${id}`, time.Timestamp(), 300, 0, set);
+  return id;
+}
+
+exports.Bind = async function(id, random) {
+  let res = await cache.Find({_id: `RANDOM${random}`});
+  if (!res.length) return false;
+  if (res[0].life + res[0].timestamp < time.Timestamp()) return false;
+  return await user.Update({_id: id}, {"$set": res[0].data});
 }

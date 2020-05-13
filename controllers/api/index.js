@@ -40,6 +40,7 @@ api.get("/course/:q", modules.course.Search);
 api.get("/course/:q/:id", modules.course.Query);
 // user
 api.post("/user", modules.user.Login);
+api.put("/user/:random", modules.auth.UserAuth, modules.user.Bind);
 // student data
 api.get("/student/schedule", modules.auth.UserAuth, modules.student.Schedule);
 api.get("/student/registration", modules.auth.UserAuth, modules.student.Registration);
