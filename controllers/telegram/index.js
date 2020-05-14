@@ -20,5 +20,9 @@ let m = {
 }
 
 // Router
+// help
 bot.onText(/^\/start/, m.help.Start(bot));
+// user
+bot.onText(/^\/me/, m.user.Me(bot));
 bot.onText(/^\/login/, m.user.Login(bot));
+bot.onText(/^\/logout/, m.user.Logout(bot));

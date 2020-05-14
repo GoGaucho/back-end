@@ -72,7 +72,7 @@ exports.Identity = async function(key, value) {
   filter[key] = value;
   let res = await user.Find(filter);
   if (!res.length) return false;
-  else return res[0]._id;
+  else return res[0];
 }
 
 exports.Random = async function(set) {
@@ -86,4 +86,10 @@ exports.Bind = async function(id, random) {
   if (!res.length) return false;
   if (res[0].life + res[0].timestamp < time.Timestamp()) return false;
   return await user.Update({_id: id}, {"$set": res[0].data});
+}
+
+exports.Unbind = async function(id, key) {
+  let obj = {};
+  obj[key] = "";
+  return await user.Update({_id: id}, {"$unset": obj});
 }
