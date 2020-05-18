@@ -82,7 +82,7 @@
     }
   },
   tree: { // relationship of all sections
-    "00000": { // sessions, "00000" for normal quarter
+    "main": { // sessions, "main" for normal quarter
       "string": ["string"] // lecture enrollCode and section enrollCodes
     }
   }

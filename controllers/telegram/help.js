@@ -6,7 +6,7 @@
 
 exports.Start = function(bot) {
   return (msg) => {
-    let resp = `Welcome to the GoGaucho Bot! You can try the following command: \n\n \/me - Manage Identity. \n\n Have a nice day!`;
+    let resp = `Welcome to the GoGaucho Bot! You can try the following command: \n\n \/me - Manage Identity. \n \/pass - check Registration Info. \n\n Have a nice day!`;
     bot.sendMessage(msg.chat.id, resp);
   }
 }

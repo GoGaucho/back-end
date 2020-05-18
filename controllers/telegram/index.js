@@ -16,7 +16,8 @@ const bot = new TelegramBot(config.telegram.token, {polling: true});
 // all modules
 let m = {
   help: require("./help"),
-  user: require("./user")
+  user: require("./user"),
+  student: require("./student")
 }
 
 // Router
@@ -26,3 +27,5 @@ bot.onText(/^\/start/, m.help.Start(bot));
 bot.onText(/^\/me/, m.user.Me(bot));
 bot.onText(/^\/login/, m.user.Login(bot));
 bot.onText(/^\/logout/, m.user.Logout(bot));
+// student
+bot.onText(/^\/pass/, m.student.Pass(bot));

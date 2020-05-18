@@ -72,7 +72,8 @@ function getTree(classSections) {
   for (let s of classSections) {
     if (s.section % 100 == 0) {
       cur = s.enrollCode;
-      const ss = s.session || "00000";
+      let ss = s.session || "main";
+      ss = ss.replace(/[\s,0]*/g, "")
       res[ss] = {};
       lec[cur] = {session: ss, sections: []};
     } else lec[cur].sections.push(s.enrollCode);
