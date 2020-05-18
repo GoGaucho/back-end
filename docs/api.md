@@ -21,5 +21,13 @@ Base: `/api`
 
 ## Course
 
-- **GET** `/course` search course
-- **GET** `/course/:code` query course or section by courseId or sectionId
+- **GET** `/course/:quarter?s=[search]` search course
+- **GET** `/course/:quarter/:code` query course by courseId
+
+## User
+- **POST** `/user?code=[code]` Login
+- **PUT** `/user/:random` Bind Account
+
+## Student
+- **GET** `/student/schedule` Student schedule
+- **GET** `/student/registration` Student registration info
