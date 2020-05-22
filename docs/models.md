@@ -77,7 +77,7 @@
         days: "string", // days
         begin: "string", // start time ("hh:mm")
         end: "string", // end time ("hh:mm")
-        location: "string" // location ("building-room")
+        location: "string"|null // location ("building-room")
       }]
     }
   },

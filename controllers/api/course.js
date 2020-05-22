@@ -21,11 +21,13 @@ exports.Search = async function(req, resp) {
   resp.send(res);
 }
 
-// query by code
+// query by code(s)
 exports.Query = async function(req, resp) {
   let q = req.params.q;
-  let id = req.params.id;
-  let res = await course.Course(q, id);
+  let ids = req.params.id.split(",");
+  let res = null;
+  if (ids.length == 1) res = await course.Course(q, ids[0]);
+  else res = await course.Courses(q, ids);
   if (!res) resp.status(404).send("Not found");
   else resp.send(res);
 }

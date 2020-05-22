@@ -2,6 +2,7 @@
 * [services] course
 * - course services
 * @{export} Course
+* @{export} Courses
 * @{export} Search
 */
 
@@ -15,6 +16,12 @@ exports.Course = async function(q, id) {
   let res = await course.Find({_id: `${q}-${id.toUpperCase()}`});
   if (!res.length) return false;
   else return res[0];
+}
+
+exports.Courses = async function(q, ids) {
+  let _ids = ids.map(x => `${q}-${x.toUpperCase()}`);
+  let res = await course.Find({_id: {"$in": _ids}});
+  return res;
 }
 
 exports.Search = async function(q, s) {
