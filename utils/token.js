@@ -20,6 +20,7 @@ exports.Create = function(id, life = 604800) {
 
 // verify a token
 exports.Check = function(token) {
+  if (!token) return false;
   const t = token.split(".");
   // check format
   if (!t[0] || !t[1] || !t[2]) return false;
