@@ -51,11 +51,7 @@ exports.Login = async function(code) {
   }
   // generate token
   let t = token.Create(profile.sub);
-  return {
-    name: name,
-    email: profile.email,
-    token: t
-  };
+  return t;
 }
 
 exports.Refresh = async function(id) {

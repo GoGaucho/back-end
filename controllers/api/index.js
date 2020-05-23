@@ -27,7 +27,10 @@ app.listen(3000, () => {
 });
 
 // info
-api.get("/info/:key", modules.info.Query);
+api.get("/info", modules.auth.AdminAuth, modules.info.GetAll)
+api.get("/info/:key", modules.info.GetOne);
+api.put("/info/:key", modules.auth.AdminAuth, modules.info.Put)
+api.delete("/info/:key", modules.auth.AdminAuth, modules.info.Delete)
 // dining
 api.get("/dining/hours", modules.dining.Hours);
 api.get("/dining/menus/:dc", modules.dining.Menus);
@@ -39,6 +42,7 @@ api.get("/professor/:name", modules.professor.Query);
 api.get("/course/:q", modules.course.Search);
 api.get("/course/:q/:id", modules.course.Query);
 // user
+api.get("/user", modules.auth.UserAuth, modules.user.Me);
 api.post("/user", modules.user.Login);
 api.put("/user/:random", modules.auth.UserAuth, modules.user.Bind);
 // student data

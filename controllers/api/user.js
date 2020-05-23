@@ -9,6 +9,16 @@
 
 const user = require("../../services/user");
 
+exports.Me = async function(req, resp) {
+  let u = await user.Identity(req.user);
+  if (!u) resp.status(404).send("Not Found");
+  else resp.send({
+    name: u.name,
+    email: u.email,
+    admin: u.admin
+  })
+}
+
 exports.Login = async function (req, resp) {
   let code = req.body.code;
   if (!code) {

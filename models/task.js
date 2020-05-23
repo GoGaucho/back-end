@@ -4,7 +4,7 @@
  * @{export} Insert
  * @{export} Delete
  * @{export} Find
- * @{export} Update
+ * @{export} Upsert
  */
 
 "use strict";
@@ -38,12 +38,12 @@ exports.Delete = async function(filter) {
   return res.result.ok; // 1 for success
 }
 
-exports.Find = async function(filter, limit = 1000) {
-  let res = await collection.find(filter).limit(limit).toArray();
+exports.Find = async function(filter, opt = {}, limit = 1000) {
+  let res = await collection.find(filter, opt).limit(limit).toArray();
   return res; // an Array
 }
 
-exports.Update = async function(filter, update) {
-  let res = await collection.updateMany(filter, update);
+exports.Upsert = async function(filter, update) {
+  let res = await collection.updateMany(filter, update, {upsert: true});
   return res.result.ok;
 }
