@@ -24,14 +24,19 @@ exports.Courses = async function(q, ids) {
   return res;
 }
 
-exports.Search = async function(q, s) {
+exports.Search = async function(q, s, fields = ["_id", "info.title", "info.description", "info.GE"]) {
   let sregex = eval(`/${s.replace(/\s+/g, "\\s*")}/i`);
   let qobj = {_id: eval(`/^${q}-/`)};
+  let opt = {projection: {_id: 1, "info.title": 1}};
   let res = {};
-  // start search
-  res["id"] = await course.Find({"$and": [qobj, {_id: sregex}]}, false);
-  res["title"] = await course.Find({"$and": [qobj, {"info.title": sregex}]}, false);
-  res["description"] = await course.Find({"$and": [qobj, {"info.description": sregex}]}, false);
-  res["GE"] = await course.Find({"$and": [qobj, {"info.GE": sregex}]}, false);
+  for (let f of fields) {
+    let filter = {};
+    filter[f] = sregex;
+    const raw = await course.Find({"$and": [qobj, filter]}, opt);
+    res[f] = [];
+    for (let x of raw) {
+      res[f].push({id: x._id.split("-", 2)[1], title: x.info.title});
+    }
+  }
   return res;
 }

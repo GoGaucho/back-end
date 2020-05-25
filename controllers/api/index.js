@@ -8,7 +8,7 @@
 
 const express = require("express");
 
-const moduleList = ["auth", "info", "user", "student", "dining", "waitz", "professor", "course"];
+const moduleList = ["auth", "info", "user", "student", "dining", "waitz", "professor", "course", "task"];
 let modules = {};
 
 // load all modules
@@ -27,10 +27,10 @@ app.listen(3000, () => {
 });
 
 // info
-api.get("/info", modules.auth.AdminAuth, modules.info.GetAll)
+api.get("/info", modules.auth.AdminAuth, modules.info.GetAll);
 api.get("/info/:key", modules.info.GetOne);
-api.put("/info/:key", modules.auth.AdminAuth, modules.info.Put)
-api.delete("/info/:key", modules.auth.AdminAuth, modules.info.Delete)
+api.put("/info/:key", modules.auth.AdminAuth, modules.info.Put);
+api.delete("/info/:key", modules.auth.AdminAuth, modules.info.Delete);
 // dining
 api.get("/dining/hours", modules.dining.Hours);
 api.get("/dining/menus/:dc", modules.dining.Menus);
@@ -48,3 +48,8 @@ api.put("/user/:random", modules.auth.UserAuth, modules.user.Bind);
 // student data
 api.get("/student/schedule", modules.auth.UserAuth, modules.student.Schedule);
 api.get("/student/registration", modules.auth.UserAuth, modules.student.Registration);
+// task admin
+api.get("/task", modules.auth.AdminAuth, modules.task.GetAll);
+api.get("/task/:key", modules.auth.AdminAuth, modules.task.GetOne);
+api.put("/task/:key", modules.auth.AdminAuth, modules.task.Put);
+api.delete("/task/:key", modules.auth.AdminAuth, modules.task.Delete);

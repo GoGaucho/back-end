@@ -32,11 +32,8 @@ exports.Delete = async function (filter) {
   return res.result.ok; // 1 for success
 }
 
-exports.Find = async function (filter, full = true, limit = 1000) {
-  let opt = {};
-  if (!full) opt = {projection: {_id: 1}};
+exports.Find = async function (filter, opt = {}, limit = 1000) {
   let res = await collection.find(filter, opt).limit(limit).toArray();
-  if (!full) res = res.map(x => x._id.split("-")[1]);
   return res; // an Array
 }
 

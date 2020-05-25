@@ -13,11 +13,15 @@ const time = require("../../utils/time");
 exports.Search = async function(req, resp) {
   let q = req.params.q;
   let s = req.query.s;
+  let f = req.query.f;
   if (!s) {
     resp.status(400).send("Params Err: s required");
     return;
   }
-  let res = await course.Search(q, s);
+  let res = {};
+  console.log(Array.isArray(f))
+  if (Array.isArray(f)) res = await course.Search(q, s, f);
+  else res = await course.Search(q, s);
   resp.send(res);
 }
 
