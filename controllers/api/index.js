@@ -29,7 +29,7 @@ app.listen(3000, () => {
 // info
 api.get("/info", modules.auth.AdminAuth, modules.info.GetAll);
 api.get("/info/:key", modules.info.GetOne);
-api.put("/info/:key", modules.auth.AdminAuth, modules.info.Put);
+api.put("/info", modules.auth.AdminAuth, modules.info.Put);
 api.delete("/info/:key", modules.auth.AdminAuth, modules.info.Delete);
 // dining
 api.get("/dining/hours", modules.dining.Hours);
@@ -51,5 +51,5 @@ api.get("/student/registration", modules.auth.UserAuth, modules.student.Registra
 // task admin
 api.get("/task", modules.auth.AdminAuth, modules.task.GetAll);
 api.get("/task/:key", modules.auth.AdminAuth, modules.task.GetOne);
-api.put("/task/:key", modules.auth.AdminAuth, modules.task.Put);
+api.put("/task", modules.auth.AdminAuth, modules.task.Put);
 api.delete("/task/:key", modules.auth.AdminAuth, modules.task.Delete);

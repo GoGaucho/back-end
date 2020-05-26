@@ -22,13 +22,13 @@ exports.All = async function() {
   return await info.Find({}, {projection: {_id: 1, timestamp: 1}});
 }
 
-exports.Upsert = async function(key, data) {
+exports.Upsert = async function(data) {
   let doc = {
-    _id: key,
+    _id: data._id,
     timestamp: time.Timestamp(),
-    data: data
+    data: data.data
   }
-  return await info.Upsert({_id: key}, {"$set": doc});
+  return await info.Upsert({_id: doc._id}, {"$set": doc});
 }
 
 exports.Delete = async function(key) {

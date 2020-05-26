@@ -24,13 +24,7 @@ exports.GetAll = async function(req, resp) {
 }
 
 exports.Put = async function(req, resp) {
-  let key = req.params.key;
-  let data = req.body.data;
-  if (!data) {
-    resp.status(400).send("Params Err, data required");
-    return;
-  }
-  let res = await info.Upsert(key, data);
+  let res = await info.Upsert(req.body);
   if (res) resp.send("Success");
   else resp.status(500).send("Fail");
 }
