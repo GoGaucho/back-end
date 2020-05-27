@@ -110,12 +110,7 @@ exports.Course = async function(quarters) {
         hash[doc._id] = crypto.MD5(JSON.stringify(doc)); // hash
       }
     }
-    let h = await info.Find({_id: `CourseHash${q}`});
-    if (!h.length) {
-      await info.Insert(`CourseHash${q}`, time.Timestamp(), hash);
-    } else {
-      await info.Update({_id: `CourseHash${q}`}, {"$set" : {timestamp: time.Timestamp(), data: hash}});
-    }
+    await info.Upsert({_id: `CourseHash${q}`}, {"$set" : {timestamp: time.Timestamp(), data: hash}});
   }
   return "done";
 }
