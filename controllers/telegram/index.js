@@ -28,4 +28,3 @@ bot.onText(/^\/me/, m.user.Me(bot));
 bot.onText(/^\/login/, m.user.Login(bot));
 bot.onText(/^\/logout/, m.user.Logout(bot));
 // student
-bot.onText(/^\/pass/, m.student.Pass(bot));

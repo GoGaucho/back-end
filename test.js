@@ -6,7 +6,9 @@
 "use strict";
 
 const info = require("./models/info");
-const course = require("./tasks/course");
+const course = require("./models/course");
 
-//info.Insert("test", 111, {test: "ddd"});
-course.Course(["20201"]).then(res => {console.log(res);});
+course.Find({_id: /^20204/}, {projection: {tree: 1}}, 3000)
+  .then(res => {
+    info.Upsert({_id: "test"}, {$set: {data: JSON.stringify(res)}});
+  })
