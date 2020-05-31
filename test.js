@@ -5,10 +5,10 @@
 
 "use strict";
 
-const info = require("./models/info");
-const course = require("./models/course");
+const time = require("./utils/time");
+const course = require("./tasks/course");
 
-course.Find({_id: /^20204/}, {projection: {tree: 1}}, 3000)
-  .then(res => {
-    info.Upsert({_id: "test"}, {$set: {data: JSON.stringify(res)}});
-  })
+console.log("Test Start ", time.Timestamp());
+course.Course(['20204']).then(res => {
+  console.log("Test End", time.Timestamp());
+})

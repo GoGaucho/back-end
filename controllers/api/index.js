@@ -8,7 +8,7 @@
 
 const express = require("express");
 
-const moduleList = ["auth", "info", "user", "student", "dining", "waitz", "professor", "course", "task"];
+const moduleList = ["auth", "info", "user", "student", "dining", "waitz", "professor", "task"];
 let modules = {};
 
 // load all modules
@@ -38,9 +38,6 @@ api.get("/dining/menus/:dc", modules.dining.Menus);
 api.get("/waitz", modules.waitz.Waitz);
 // professor
 api.get("/professor/:name", modules.professor.Query);
-// course
-api.get("/course/:q", modules.course.Search);
-api.get("/course/:q/:id", modules.course.Query);
 // user
 api.get("/user", modules.auth.UserAuth, modules.user.Me);
 api.post("/user", modules.user.Login);

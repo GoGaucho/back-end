@@ -19,9 +19,9 @@ async function main() {
   while (!models()) await time.Sleep(1000);
   console.log("# MongoDB ready (Main Thread)");
   // initialize controllers
-  // require("./controllers");
+  require("./controllers");
   
-  require("./test");
+  // require("./test");
 }
 
 // start

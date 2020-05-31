@@ -52,6 +52,10 @@ Following are info conventions
 
 Default quarter id for front-end
 
+### CourseHash
+
+All hashes of the data of following course-related documents
+
 ### CourseInfo[q]
 
 ```js

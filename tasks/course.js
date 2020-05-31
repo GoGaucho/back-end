@@ -12,7 +12,6 @@ const time = require("../utils/time");
 const crypto = require("../utils/crypto");
 
 const info = require("../models/info");
-const course = require("../models/course");
 
 async function getData(q, i){
   return await axios // get course data
@@ -51,14 +50,9 @@ function getPeriods(timeLocations) {
 function getSections(classSections) {
   let res = {};
   for (let s of classSections) {
-    res[s.enrollCode] = {
-      section: s.section,
-      close: Boolean(s.classClosed),
-      cancel: Boolean(s.courseCancelled),
-      instructors: s.instructors.map(x => x.instructor).filter(x=>x),
-      periods: getPeriods(s.timeLocations)
-    }
-    if (s.section % 100 == 0) res[s.enrollCode]["final"] = { time: "", comment: "" };
+    res[s.enrollCode] = [
+      s.section, Boolean(s.classClosed), Boolean(s.courseCancelled), ["", ""], s.instructors.map(x => x.instructor).filter(x => x), getPeriods(s.timeLocations)
+    ]
   }
   return res;
 }
@@ -83,34 +77,31 @@ function getTree(classSections) {
 }
 
 exports.Course = async function(quarters) {
+  let courseHash = {}
   for (let q of quarters) { // loop of quarters
-    let hash = {};
+    let courseInfo = {};
+    let courseSections = {};
+    let courseTree = {};
     for (let i = 1; ; i++) { // loop of pages
       let data = await getData(q, i);
       if (!data) return "Abrupted by a request failure.";
       if (!data.length) break;
       for (let c of data) { // loop for course
-        let doc = {
-          _id: q + "-" + c.courseId.replace(/\s*/g, ""),
-          info: {
-            title: c.title,
-            description: c.description,
-            college: c.college,
-            grading: c.gradingOption,
-            level: c.objLevelCode,
-            restriction: null,
-            min_unit: c.unitsFixed ? c.unitsFixed : c.unitsVariableLow,
-            max_unit: c.unitsFixed ? c.unitsFixed : c.unitsVariableHigh,
-            GE: c.generalEducation.map(x => (x.geCollege + "-" + x.geCode).replace(/\s/g, ""))
-          },
-          sections: getSections(c.classSections),
-          tree: getTree(c.classSections)
-        };
-        await course.Upsert({_id: doc._id}, {"$set": doc});
-        hash[doc._id] = crypto.MD5(JSON.stringify(doc)); // hash
+        const id = c.courseId.replace(/\s*/g, "")
+        courseInfo[id] = [
+          c.title, c.description, c.college, c.gradingOption, c.objLevelCode, null, (c.unitsFixed ? c.unitsFixed : c.unitsVariableLow), (c.unitsFixed ? c.unitsFixed : c.unitsVariableHigh), c.generalEducation.map(x => (x.geCollege + "-" + x.geCode).replace(/\s/g, ""))
+        ];
+        courseSections[id] = getSections(c.classSections);
+        courseTree[id] = getTree(c.classSections);
       }
     }
-    await info.Upsert({_id: `CourseHash${q}`}, {"$set" : {timestamp: time.Timestamp(), data: hash}});
+    courseHash[`CourseInfo${q}`] = crypto.MD5(JSON.stringify(courseInfo));
+    courseHash[`CourseSections${q}`] = crypto.MD5(JSON.stringify(courseSections));
+    courseHash[`CourseTree${q}`] = crypto.MD5(JSON.stringify(courseTree));
+    await info.Upsert({_id: `CourseInfo${q}`}, {"$set" : {timestamp: time.Timestamp(), data: courseInfo}});
+    await info.Upsert({_id: `CourseSections${q}`}, {"$set" : {timestamp: time.Timestamp(), data: courseSections}});
+    await info.Upsert({_id: `CourseTree${q}`}, {"$set" : {timestamp: time.Timestamp(), data: courseTree}});
   }
+  await info.Upsert({_id: `CourseHash`}, {"$set" : {timestamp: time.Timestamp(), data: courseHash}});
   return "done";
 }
