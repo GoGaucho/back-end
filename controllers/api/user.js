@@ -10,7 +10,7 @@
 const user = require("../../services/user");
 
 exports.Me = async function(req, resp) {
-  let u = await user.Identity(req.user);
+  let u = await user.Identity("_id", req.user);
   if (!u) resp.status(404).send("Not Found");
   else resp.send({
     name: u.name,
