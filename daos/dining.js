@@ -27,13 +27,12 @@ async function Hours(date) {
 async function Menus(dc, date) {
   let res = {};
   let hours = await Hours(date);
-  for (let i in hours) {
-    const h = hours[i];
+  for (let h of hours.data) {
     if (h.diningCommonCode != dc) continue;
     let m = await axios // get menu
       .get(`https://api.ucsb.edu/dining/menu/v1/${date}/${dc}/${h.mealCode}`, { headers: { "ucsb-api-key": config.UCSB.key } })
-      .then(res => { return res.data; })
-      .catch(err => { return []; });
+      .then(res => res.data)
+      .catch(err => []);
     res[h.mealCode] = { time: `${h.open}-${h.close}`, menu: m };
   }
   return {
