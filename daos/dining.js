@@ -27,7 +27,8 @@ async function Hours(date) {
 async function Menus(dc, date) {
   let res = {};
   let hours = await Hours(date);
-  for (let h of hours) {
+  for (let i in hours) {
+    const h = hours[i];
     if (h.diningCommonCode != dc) continue;
     let m = await axios // get menu
       .get(`https://api.ucsb.edu/dining/menu/v1/${date}/${dc}/${h.mealCode}`, { headers: { "ucsb-api-key": config.UCSB.key } })
