@@ -30,5 +30,5 @@ Function in **daos** layer must return an Object
 - `dining.Menus(dc, date)` Dining Menus of a Dining Common on a particular day
 - `professor.RMP(id)` RateMyProfessor data for a given professor
 - `waitz.Waitz()` current waitz data
-- `course.Course(q, code)` get course data
-
+- `quarter.Current()` get current quarter and session
+- `quarter.Quarter(q)` get info of a quarter (include sessions)

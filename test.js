@@ -5,10 +5,6 @@
 
 "use strict";
 
-const time = require("./utils/time");
-const course = require("./tasks/course");
+const daos = require("./daos");
 
-console.log("Test Start ", time.Timestamp());
-course.Course(['20204']).then(res => {
-  console.log("Test End", time.Timestamp());
-})
+daos("quarter.Quarter", "20202").then(res => { console.log(res) })
