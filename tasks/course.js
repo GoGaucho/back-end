@@ -102,6 +102,9 @@ exports.Course = async function(quarters) {
     await info.Upsert({_id: `CourseSections${q}`}, {"$set" : {timestamp: time.Timestamp(), data: courseSections}});
     await info.Upsert({_id: `CourseTree${q}`}, {"$set" : {timestamp: time.Timestamp(), data: courseTree}});
   }
-  await info.Upsert({_id: `CourseHash`}, {"$set" : {timestamp: time.Timestamp(), data: courseHash}});
+  const res = await info.Find({ _id: 'CourseHash' })
+  let oldHash = {}
+  if (res && res.length) oldHash = res[0].data
+  await info.Upsert({_id: `CourseHash`}, { "$set" : { timestamp: time.Timestamp(), data: { ...oldHash, ...courseHash } } });
   return "done";
 }
