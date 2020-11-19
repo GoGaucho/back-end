@@ -10,6 +10,10 @@ Base: `/api`
 :key` upsert info
 - **DELETE** `/info/:key` Delete info
 
+## Space
+
+- **GET** `/space/:course` get space history
+
 ## Dining
 
 - **GET** `/dining/hours` dining hours

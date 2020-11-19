@@ -95,16 +95,13 @@ exports.Course = async function(quarters) {
         courseTree[id] = getTree(c.classSections);
       }
     }
-    courseHash[`CourseInfo${q}`] = crypto.MD5(JSON.stringify(courseInfo));
-    courseHash[`CourseSections${q}`] = crypto.MD5(JSON.stringify(courseSections));
-    courseHash[`CourseTree${q}`] = crypto.MD5(JSON.stringify(courseTree));
+    courseHash["data.CourseInfo" + q] = crypto.MD5(JSON.stringify(courseInfo));
+    courseHash["data.CourseSections" + q] = crypto.MD5(JSON.stringify(courseSections));
+    courseHash["data.CourseTree" + q] = crypto.MD5(JSON.stringify(courseTree));
     await info.Upsert({_id: `CourseInfo${q}`}, {"$set" : {timestamp: time.Timestamp(), data: courseInfo}});
     await info.Upsert({_id: `CourseSections${q}`}, {"$set" : {timestamp: time.Timestamp(), data: courseSections}});
     await info.Upsert({_id: `CourseTree${q}`}, {"$set" : {timestamp: time.Timestamp(), data: courseTree}});
   }
-  const res = await info.Find({ _id: 'CourseHash' })
-  let oldHash = {}
-  if (res && res.length) oldHash = res[0].data
-  await info.Upsert({_id: `CourseHash`}, { "$set" : { timestamp: time.Timestamp(), data: { ...oldHash, ...courseHash } } });
+  await info.Upsert({_id: `CourseHash`}, { "$set" : { timestamp: time.Timestamp(), ...courseHash } });
   return "done";
 }

@@ -5,6 +5,6 @@
 
 "use strict";
 
-const daos = require("./daos");
+const space = require("./tasks/space");
 
-daos("quarter.Quarter", "20202").then(res => { console.log(res) })
+space.Space(20211).then(res => { console.log(res) })

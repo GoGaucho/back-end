@@ -22,7 +22,8 @@ async function task() {
   const m = { // all modules
     cache: require("./cache"),
     professor: require("./professor"),
-    course: require("./course")
+    course: require("./course"),
+    space: require("./space")
   }
 
   async function check() {

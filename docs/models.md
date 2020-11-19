@@ -23,6 +23,18 @@
 }
 ```
 
+## space
+
+> Store space history data
+```js
+{
+  _id: "string", // quarter + course id
+  [enrollCode]: {
+    [timestamp]: int // space value at the time
+  }
+}
+```
+
 ## task
 
 > operators for task
@@ -51,6 +63,14 @@ Following are info conventions
 ### Quarter
 
 Default quarter id for front-end
+
+### CourseSpace[q]
+
+```js
+{
+  "enrollCode": [space(int), max(int)]
+}
+```
 
 ### CourseHash
 
